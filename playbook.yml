@@ -14,10 +14,10 @@
       - core
   tasks:
     - include: tasks/core.yml
-    - include: tasks/dotfiles.yml
+    - include: tasks/ssh.yml
     - include: tasks/git.yml
+    - include: tasks/dotfiles.yml
     - include: tasks/neovim.yml
     - include: tasks/node.yml
     - include: tasks/npm-packages.yml
-    - include: tasks/ssh.yml
     - include: tasks/zsh.yml

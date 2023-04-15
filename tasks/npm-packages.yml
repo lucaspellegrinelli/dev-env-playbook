@@ -5,6 +5,7 @@
   tags:
     - install
     - node
+
 - name: Install Typescript server
   npm:
     name: typescript-language-server
@@ -12,6 +13,7 @@
   tags:
     - install
     - node
+
 - name: Install Typescript
   npm:
     name: typescript
@@ -19,6 +21,7 @@
   tags:
     - install
     - node
+
 - name: Install TS-Node
   npm:
     name: ts-node

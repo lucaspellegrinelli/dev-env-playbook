@@ -4,6 +4,7 @@
     - install
     - dotfiles
     - stow
+
 - name: Cloning .dotfiles
   ansible.builtin.git:
     repo: 'git@github.com:lucaspellegrinelli/.dotfiles.git'
@@ -11,12 +12,13 @@
     recursive: yes
     update: yes
     accept_hostkey: yes
-    version: master
+    version: main
   tags:
     - install
     - dotfiles
+
 - name: Stow dotfiles
-  shell: cd $HOME/.dotfiles && ./ubuntu
+  shell: cd $HOME/.dotfiles && stow */
   tags:
     - install
     - dotfiles
