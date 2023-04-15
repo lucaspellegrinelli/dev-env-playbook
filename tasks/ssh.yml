@@ -45,6 +45,6 @@
   authorized_key:
     user: "{{ user }}"
     state: present
-    key: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa.pub"
+    key: "/home/{{ user }}/.ssh/id_rsa.pub"
   with_fileglob:
-  - "{{ lookup('env', 'HOME') }}/.ssh/*.pub"
+  - "/home/{{ user }}/.ssh/*.pub"
