@@ -1,4 +1,4 @@
-FROM ubuntu:focal AS base
+FROM ubuntu:latest AS base
 WORKDIR /usr/local/bin
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
@@ -10,13 +10,16 @@ RUN apt-get update && \
     apt-get clean autoclean && \
     apt-get autoremove --yes
 
-FROM base AS lucas
+FROM base AS setup
 ARG TAGS
-RUN addgroup --gid 1000 lucas
-RUN adduser --gecos lucas --uid 1000 --gid 1000 --disabled-password lucas
-USER lucas
-WORKDIR /home/lucas
 
-FROM lucas
+RUN useradd -m lucas && echo "lucas:password" | chpasswd && usermod -aG sudo lucas
+RUN echo "lucas ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+RUN chown -R lucas:lucas /home/lucas
+RUN chmod 755 /home/lucas
+
+USER lucas
+WORKDIR /home/lucas/stuff
+
+FROM setup
 COPY . .
-CMD ["sh", "-c", "ansible-playbook $TAGS playbook.yml"]

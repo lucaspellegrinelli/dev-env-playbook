@@ -1,7 +1,8 @@
 - name: Ensure .ssh directory exists.
+  become: true
   file:
     dest: "{{ dest_key | dirname }}"
-    mode: 0700
+    mode: 0755
     state: directory
   tags:
     - dotfiles
@@ -9,6 +10,7 @@
     - ssh
 
 - name: Install ssh key
+  become: true
   copy:
     src: "{{ source_key }}"
     dest: "{{ dest_key }}"
@@ -19,6 +21,7 @@
     - ssh
 
 - name: Install ssh key public
+  become: true
   copy:
     src: "{{ source_key }}.pub"
     dest: "{{ dest_key }}.pub"
@@ -27,9 +30,20 @@
     - dotfiles
     - install
     - ssh
+
+- name: Check if SSH key exists for user
+  stat:
+    path: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa.pub"
+  register: ssh_key
+
+- name: Print SSH key status
+  debug:
+    msg: "SSH key {{ 'exists' if ssh_key.stat.exists else 'does not exist' }} for user lucas"
+
 - name: Set authorized key took from file
+  become: true
   authorized_key:
-    user: "{{ lookup('env', 'USER') }}"
+    user: "{{ user }}"
     state: present
     key: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa.pub"
   with_fileglob:
