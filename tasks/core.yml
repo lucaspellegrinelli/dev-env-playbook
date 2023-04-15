@@ -1,0 +1,8 @@
+- name: Install System Packages
+  become: true
+  apt:
+    name: ["build-essential", "unzip", "curl", "tmux", "fzf"]
+  tags:
+    - install
+    - neovim
+    - core
