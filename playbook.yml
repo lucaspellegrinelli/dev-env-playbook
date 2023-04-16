@@ -1,24 +1,22 @@
 - hosts: localhost
+  become: true
+
   vars:
-    user: "lucas"
-    source_key: "./.ssh/id_rsa"
-    dest_key: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
-  pre_tasks:
-  - name: Update Apt
-    become: true
-    apt:
-      force_apt_get: true
-      update_cache: true
-      state: present
-    tags:
-      - install
-      - core
+    ssh_path: "/home/{{ ansible_user }}/.ssh"
+    ansible_user: "lucas"
+
   tasks:
-    - include: tasks/core.yml
-    - include: tasks/ssh.yml
-    - include: tasks/git.yml
-    - include: tasks/dotfiles.yml
-    - include: tasks/neovim.yml
-    - include: tasks/node.yml
-    - include: tasks/npm-packages.yml
-    - include: tasks/zsh.yml
+    - name: Update system
+      apt:
+        update_cache: yes
+        upgrade: dist
+
+    - import_tasks: tasks/core.yml
+    - import_tasks: tasks/ssh.yml
+    - import_tasks: tasks/zsh.yml
+    - import_tasks: tasks/git.yml
+    - import_tasks: tasks/dotfiles.yml
+    - import_tasks: tasks/neovim.yml
+    - import_tasks: tasks/node.yml
+    - import_tasks: tasks/npm-packages.yml
+    - import_tasks: tasks/miniconda.yml

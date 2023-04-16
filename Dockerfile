@@ -1,4 +1,4 @@
-FROM ubuntu:latest AS base
+FROM ubuntu:22.04 AS base
 WORKDIR /usr/local/bin
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \

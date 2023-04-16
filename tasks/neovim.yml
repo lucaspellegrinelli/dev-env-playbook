@@ -1,21 +1,28 @@
-- name: Remove neovim
-  shell: rm -rf ~/neovim
-  tags:
-    - install
-    - neovim
-
-- name: Install neovim
-  become: true
+- name: Install Neovim
   apt:
     name: neovim
-  tags:
-    - install
-    - neovim
+    state: present
 
-- name: Get Packer
-  ansible.builtin.git:
-    repo: 'https://github.com/wbthomason/packer.nvim'
-    dest: "{{ lookup('env', 'HOME') }}/.local/share/nvim/site/pack/packer/start/packer.nvim"
-  tags:
-    - install
-    - neovim
+- name: Create Packer directory
+  vars:
+    packer_path: "/home/{{ ansible_user }}/.local/share/nvim/site/pack/packer/start/packer.nvim"
+  file:
+    path: "{{ packer_path }}"
+    state: directory
+
+- name: Clone Packer
+  vars:
+    packer_path: "/home/{{ ansible_user }}/.local/share/nvim/site/pack/packer/start/packer.nvim"
+  git:
+    repo: "https://github.com/wbthomason/packer.nvim"
+    dest: "{{ packer_path }}"
+    version: master
+
+# - name: Install Packer dependencies
+#   command: "nvim --headless +PackerSync"
+
+- name: Set Neovim as default editor
+  alternatives:
+    name: editor
+    path: /usr/bin/nvim
+    priority: 50

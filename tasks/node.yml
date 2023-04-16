@@ -1,21 +1,12 @@
-- name: Install nodejs and npm
-  become: true
+- name: Install Node.js and NPM
   apt:
-    name: ["nodejs", "npm"]
-  tags:
-    - install
-    - node
+    name:
+      - nodejs
+      - npm
+    state: present
 
-- name: Install N
-  npm:
-    name: n
-    global: yes
-  tags:
-    - install
-    - node
+- name: Install N Node Manager
+  shell: "npm install -g n"
 
-- name: Install correct version of Node
-  shell: n 18
-  tags:
-    - install
-    - node
+- name: Install Node.js version 18
+  shell: "n 18"

@@ -1,50 +1,22 @@
-- name: Ensure .ssh directory exists.
-  become: true
-  file:
-    dest: "{{ dest_key | dirname }}"
-    mode: 0755
-    state: directory
-  tags:
-    - dotfiles
-    - install
-    - ssh
-
-- name: Install ssh key
-  become: true
+- name: Copy SSH public key to target user's .ssh directory
   copy:
-    src: "{{ source_key }}"
-    dest: "{{ dest_key }}"
-    mode: 0600
-  tags:
-    - dotfiles
-    - install
-    - ssh
+    src: "./.ssh/id_rsa"
+    dest: "/home/{{ ansible_user }}/.ssh/"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: "0600"
 
-- name: Install ssh key public
-  become: true
+- name: Copy SSH public key to target user's .ssh directory
   copy:
-    src: "{{ source_key }}.pub"
-    dest: "{{ dest_key }}.pub"
-    mode: 0644
-  tags:
-    - dotfiles
-    - install
-    - ssh
+    src: "./.ssh/id_rsa.pub"
+    dest: "/home/{{ ansible_user }}/.ssh/"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: "0644"
 
-- name: Check if SSH key exists for user
-  stat:
-    path: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa.pub"
-  register: ssh_key
-
-- name: Print SSH key status
-  debug:
-    msg: "SSH key {{ 'exists' if ssh_key.stat.exists else 'does not exist' }} for user lucas"
-
-- name: Set authorized key took from file
-  become: true
+- name: Set the public key as the authorized key
   authorized_key:
-    user: "{{ user }}"
-    state: present
-    key: "/home/{{ user }}/.ssh/id_rsa.pub"
+    user: "{{ ansible_user }}"
+    key: "{{ lookup('file', item) }}"
   with_fileglob:
-  - "/home/{{ user }}/.ssh/*.pub"
+    - "/home/{{ ansible_user }}/.ssh/*.pub"

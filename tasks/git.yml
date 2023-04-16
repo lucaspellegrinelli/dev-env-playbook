@@ -1,14 +1,7 @@
-- name: Git personal setup email
-  git_config:
-    name: user.email
-    scope: global
-    value: "lucas.pellegrinelli@hotmail.com"
-  tags:
-  - git-personal
-- name: Git personal setup name
-  git_config:
-    name: user.name
-    scope: global
-    value: "Lucas Pellegrinelli"
-  tags:
-  - git-personal
+- name: Set git username and email
+  vars:
+    git_username: "Lucas Pellegrinelli"
+    git_email: "lucas.pellegrinelli@hotmail.com"
+  shell: |
+    git config --global user.name "{{ git_username }}"
+    git config --global user.email "{{ git_email }}"
