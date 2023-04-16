@@ -2,7 +2,6 @@
   become: true
 
   vars:
-    ssh_path: "/home/{{ ansible_user }}/.ssh"
     ansible_user: "lucas"
 
   tasks:
