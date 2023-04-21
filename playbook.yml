@@ -1,13 +1,12 @@
 - hosts: localhost
-  become: true
 
   vars:
     ansible_user: "lucas"
 
   tasks:
+    - import_tasks: tasks/zsh.yml    
     - import_tasks: tasks/core.yml
     - import_tasks: tasks/ssh.yml
-    - import_tasks: tasks/zsh.yml
     - import_tasks: tasks/git.yml
     - import_tasks: tasks/dotfiles.yml
     - import_tasks: tasks/neovim.yml
@@ -19,6 +18,3 @@
       
     - name: Update opt owner
       shell: "chown -R {{ ansible_user }}:{{ ansible_user }} /opt/
-
-    - name: Change default shell
-      shell: "chsh -s $(which zsh)"
