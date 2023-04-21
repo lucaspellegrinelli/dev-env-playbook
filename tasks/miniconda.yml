@@ -11,3 +11,6 @@
   file:
     path: /tmp/miniconda.sh
     state: absent
+    
+- name: Initialize Miniconda
+  shell: "/opt/miniconda/bin/conda init zsh"
