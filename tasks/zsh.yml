@@ -1,12 +1,19 @@
 - name: Install Zsh dependencies
+  become: true
   apt:
-    name:
-      - zsh
-      - git
+    name: zsh
     state: present
 
+
 - name: Change default shell
-  shell: "chsh -s $(which zsh)"
+  become: true
+  shell: "chsh -s $(which zsh) {{ ansible_user }}"
+
+- name: Set Zsh as default shell
+  user:
+    name: "{{ ansible_user }}"
+    shell: /usr/bin/zsh
+    update_password: on_create
 
 - name: Ensure Antigen directory exists
   file:
@@ -20,8 +27,3 @@
     dest: "/home/{{ ansible_user }}/.antigen/antigen.sh"
     mode: '0755'
 
-- name: Set Zsh as default shell
-  user:
-    name: "{{ ansible_user }}"
-    shell: /usr/bin/zsh
-    update_password: on_create

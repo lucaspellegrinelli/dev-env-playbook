@@ -4,6 +4,10 @@
     dest: "/tmp/miniconda.sh"
     mode: '0755'
 
+- name: Update miniconda directory owner
+  become: true
+  shell: "chown -R {{ ansible_user }}:{{ ansible_user }} /opt/"
+
 - name: Install Miniconda
   shell: "/tmp/miniconda.sh -b -p /opt/miniconda"
 
@@ -11,9 +15,6 @@
   file:
     path: /tmp/miniconda.sh
     state: absent
-    
+
 - name: Initialize Miniconda
   shell: "/opt/miniconda/bin/conda init zsh"
-
-- name: Update directory owner
-  shell: "chown -R {{ ansible_user }}:{{ ansible_user }} /opt/miniconda/"

@@ -1,7 +1,9 @@
 - name: Add Neovim PPA Repository
+  become: true
   shell: "add-apt-repository -y ppa:neovim-ppa/unstable"
 
 - name: Install Neovim
+  become: true
   shell: "apt-get update && apt-get install -y neovim"
 
 - name: Create Packer directory
