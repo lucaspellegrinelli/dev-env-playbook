@@ -5,6 +5,9 @@
       - git
     state: present
 
+- name: Change default shell
+  shell: "chsh -s $(which zsh)"
+
 - name: Ensure Antigen directory exists
   file:
     path: "/home/{{ ansible_user }}/.antigen"
