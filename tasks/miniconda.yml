@@ -14,3 +14,6 @@
     
 - name: Initialize Miniconda
   shell: "/opt/miniconda/bin/conda init zsh"
+
+- name: Update directory owner
+  shell: "chown -R {{ ansible_user }}:{{ ansible_user }} /opt/miniconda/"
