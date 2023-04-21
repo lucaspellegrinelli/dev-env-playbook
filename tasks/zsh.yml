@@ -4,7 +4,6 @@
     name: zsh
     state: present
 
-
 - name: Change default shell
   become: true
   shell: "chsh -s $(which zsh) {{ ansible_user }}"
