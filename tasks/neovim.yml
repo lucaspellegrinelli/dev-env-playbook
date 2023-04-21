@@ -1,10 +1,17 @@
-- name: Add Neovim PPA Repository
-  become: true
-  shell: "add-apt-repository -y ppa:neovim-ppa/unstable"
+- name: Download Neovim
+  get_url:
+    url: "https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.tar.gz"
+    dest: "/tmp/nvim-linux64.tar.gz"
+    mode: '0755'
 
-- name: Install Neovim
-  become: true
-  shell: "apt-get update && apt-get install -y neovim"
+- name: Unpack Neovim
+  shell: tar xzvf /tmp/nvim-linux64.tar.gz -C /tmp/
+
+- name: Move Neovim
+  shell: mv /tmp/nvim-linux64 ~/.local/nvim
+
+- name: Clean downloaded file
+  shell: rm /tmp/nvim-linux64.tar.gz
 
 - name: Create Packer directory
   file:
