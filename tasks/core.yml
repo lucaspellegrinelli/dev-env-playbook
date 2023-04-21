@@ -1,7 +1,7 @@
 - name: Install fzf
-  shell: "git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install --all"
-  args:
-    executable: /bin/bash
+  apt:
+    name: fzf
+    state: present
 
 - name: Install tmux
   apt:
