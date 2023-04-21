@@ -5,11 +5,6 @@
     ansible_user: "lucas"
 
   tasks:
-    - name: Update system
-      apt:
-        update_cache: yes
-        upgrade: dist
-
     - import_tasks: tasks/core.yml
     - import_tasks: tasks/ssh.yml
     - import_tasks: tasks/zsh.yml
@@ -19,3 +14,9 @@
     - import_tasks: tasks/node.yml
     - import_tasks: tasks/npm-packages.yml
     - import_tasks: tasks/miniconda.yml
+
+    - name: Update directory owner
+      shell: "chown -R {{ ansible_user }}:{{ ansible_user }} /home/{{ ansible_user }}/ && chmod 750 /home/{{ ansible_user }}/"
+
+    - name: Change default shell
+      shell: "chsh -s $(which zsh)"
