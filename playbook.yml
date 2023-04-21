@@ -10,6 +10,6 @@
     - import_tasks: tasks/node.yml
     - import_tasks: tasks/zsh.yml
     - import_tasks: tasks/dotfiles.yml
-    # - import_tasks: tasks/neovim.yml
-    # - import_tasks: tasks/npm-packages.yml
-    # - import_tasks: tasks/miniconda.yml
+    - import_tasks: tasks/neovim.yml
+    - import_tasks: tasks/npm-packages.yml
+    - import_tasks: tasks/miniconda.yml
