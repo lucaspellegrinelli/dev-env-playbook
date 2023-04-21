@@ -16,6 +16,9 @@
 
     - name: Update directory owner
       shell: "chown -R {{ ansible_user }}:{{ ansible_user }} /home/{{ ansible_user }}/ && chmod 750 /home/{{ ansible_user }}/"
+      
+    - name: Update opt owner
+      shell: "chown -R {{ ansible_user }}:{{ ansible_user }} /opt/
 
     - name: Change default shell
       shell: "chsh -s $(which zsh)"
