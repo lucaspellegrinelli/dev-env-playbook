@@ -1,2 +1,8 @@
 - name: Install NVM
   shell: wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+
+- name: Install Node 18
+  shell: nvm install 18
+  
+- name: Use Node 18
+  shell: nvm use 18
