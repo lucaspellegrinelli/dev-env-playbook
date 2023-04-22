@@ -1,5 +1,17 @@
-- name: Install NVM
-  shell: wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+- name: Install nvm
+  ansible.builtin.shell: >
+    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.39.1/install.sh | bash
+  args:
+    executable: /bin/bash
+    chdir: "$HOME"
+    creates: "$HOME/.nvm/nvm.sh"
 
-- name: Install Node 18
-  shell: "source ~/.bashrc && nvm install 18 && nvm use 18"
+- name: Install node
+  shell: >
+    . /home/{{ ansible_user }}/.nvm/nvm.sh && nvm install 18
+  args:
+    executable: /bin/bash
+    chdir: "/home/{{ ansible_user }}/"
+    creates: "/home/{{ ansible_user }}/.nvm/versions/{{ item }}"
+  loop:
+    - 14.20.0
