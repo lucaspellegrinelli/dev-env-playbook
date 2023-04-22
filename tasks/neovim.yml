@@ -1,5 +1,5 @@
 - name: Create Neovim installation folder
-  shell: mkdir -p ~/.local/nvim
+  shell: mkdir -p ~/.local
 
 - name: Download Neovim
   get_url:
