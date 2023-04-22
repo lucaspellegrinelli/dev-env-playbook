@@ -8,7 +8,7 @@
 
 - name: Install node
   shell: >
-    . /home/{{ ansible_user }}/.nvm/nvm.sh && nvm install 18
+    . /home/{{ ansible_user }}/.nvm/nvm.sh && nvm install 18 && nvm use 18
   args:
     executable: /bin/bash
     chdir: "/home/{{ ansible_user }}/"
