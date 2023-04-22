@@ -1,3 +1,6 @@
+- name: Create Neovim installation folder
+  shell: mkdir -p ~/.local/nvim
+
 - name: Download Neovim
   get_url:
     url: "https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.tar.gz"
