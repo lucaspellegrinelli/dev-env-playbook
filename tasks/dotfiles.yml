@@ -3,14 +3,11 @@
   apt:
     name: stow
     state: present
-    
-- name: Create projects folder
-  shell: mkdir -p /home/{{ ansible_user }}/projects
 
 - name: Clone dotfiles repository
   git:
     repo: "git@github.com:lucaspellegrinelli/dotfiles.git"
-    dest: "/home/{{ ansible_user }}/projects/dotfiles"
+    dest: "/home/{{ ansible_user }}/dotfiles"
     recursive: yes
     update: yes
     accept_hostkey: yes
@@ -20,7 +17,7 @@
 - name: Clone bhub dotfiles repository
   git:
     repo: "git@github.com:lucaspellegrinelli/dotfiles-bhub.git"
-    dest: "/home/{{ ansible_user }}/projects/dotfiles-bhub"
+    dest: "/home/{{ ansible_user }}/dotfiles-bhub"
     recursive: yes
     update: yes
     accept_hostkey: yes
@@ -28,11 +25,11 @@
     version: main
 
 - name: Stow dotfiles
-  shell: "cd /home/{{ ansible_user }}/projects/dotfiles && stow */"
+  shell: "cd /home/{{ ansible_user }}/dotfiles && stow */"
   args:
     executable: /bin/bash
 
 - name: Stow bhub dotfiles
-  shell: "cd /home/{{ ansible_user }}/projects/dotfiles-bhub && stow */"
+  shell: "cd /home/{{ ansible_user }}/dotfiles-bhub && stow */"
   args:
     executable: /bin/bash
