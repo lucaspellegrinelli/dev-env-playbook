@@ -1,21 +1,2 @@
-- name: Install nodejs and npm
-  become: true
-  apt:
-    name: ["nodejs", "npm"]
-
-- name: npmjs prefix
-  shell: mkdir -p ~/.local/.npm-global
-
-- name: add npmjs to path
-  shell: PATH=~/.local/.npm-global/bin:$PATH
-
-- name: npmjs global settings
-  shell: npm config set prefix '~/.local/.npm-global'
-
-- name: Install N
-  npm:
-    name: n
-    global: yes
-
-- name: Install correct version of Node
-  shell: export PATH=~/.local/.npm-global/bin:$PATH && export N_PREFIX=$HOME/.local/n && n 18
+- name: Install NVM
+  shell: wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
