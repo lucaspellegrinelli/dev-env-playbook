@@ -3,9 +3,3 @@
   apt:
     name: fzf
     state: present
-
-- name: Install tmux
-  become: true
-  apt:
-    name: tmux
-    state: present
