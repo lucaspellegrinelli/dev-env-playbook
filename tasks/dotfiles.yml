@@ -33,3 +33,6 @@
   shell: "cd /home/{{ ansible_user }}/dotfiles-bhub && stow */"
   args:
     executable: /bin/bash
+
+- name: Source tmux configuration file
+  shell: "tmux source ~/.config/tmux/tmux.conf"
