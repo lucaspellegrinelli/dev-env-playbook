@@ -11,4 +11,3 @@
     - import_tasks: tasks/dotfiles.yml
     - import_tasks: tasks/tmux.yml
     - import_tasks: tasks/neovim.yml
-    - import_tasks: tasks/miniconda.yml
