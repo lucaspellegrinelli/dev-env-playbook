@@ -1,5 +1,7 @@
 - name: Create Neovim installation folder
-  shell: mkdir -p ~/.local
+  file:
+    path: ~/.local/nvim
+    state: directory
 
 - name: Download Neovim
   get_url:
@@ -8,13 +10,20 @@
     mode: '0755'
 
 - name: Unpack Neovim
-  shell: tar xzvf /tmp/nvim-linux64.tar.gz -C /tmp/
+  unarchive:
+    src: /tmp/nvim-linux64.tar.gz
+    dest: /tmp/
+    remote_src: yes
 
 - name: Move Neovim
-  shell: mv /tmp/nvim-linux64 ~/.local/nvim
+  command:
+    cmd: mv /tmp/nvim-linux64 ~/.local/nvim
+    creates: ~/.local/nvim
 
 - name: Clean downloaded file
-  shell: rm /tmp/nvim-linux64.tar.gz
+  file:
+    path: /tmp/nvim-linux64.tar.gz
+    state: absent
 
 - name: Create Packer directory
   file:
