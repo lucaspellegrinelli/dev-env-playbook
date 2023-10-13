@@ -1,3 +1,10 @@
+- name: Install git
+  become: true
+  apt:
+    name: git
+    update_cache: yes
+    state: present
+
 - name: Set git username and email
   vars:
     git_username: "Lucas Pellegrinelli"

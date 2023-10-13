@@ -1,17 +1,18 @@
-- name: Install nvm
-  ansible.builtin.shell: >
-    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.39.1/install.sh | bash
-  args:
-    executable: /bin/bash
-    chdir: "$HOME"
-    creates: "$HOME/.nvm/nvm.sh"
+- name: Download n script
+  get_url:
+    url: https://raw.githubusercontent.com/tj/n/master/bin/n
+    dest: /tmp/n
+    mode: '0755'
 
-- name: Install node
-  shell: >
-    . /home/{{ ansible_user }}/.nvm/nvm.sh && nvm install 18 && nvm use 18
-  args:
-    executable: /bin/bash
-    chdir: "/home/{{ ansible_user }}/"
-    creates: "/home/{{ ansible_user }}/.nvm/versions/{{ item }}"
-  loop:
-    - 14.20.0
+- name: Install Node.js using n
+  become: true
+  command: bash /tmp/n lts
+
+- name: Remove n script
+  file:
+    path: /tmp/n
+    state: absent
+
+- name: Install n using npm
+  become: true
+  command: npm install -g n

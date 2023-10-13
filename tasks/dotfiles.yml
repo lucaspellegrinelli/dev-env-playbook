@@ -14,25 +14,7 @@
     key_file: "/home/{{ ansible_user }}/.ssh/id_rsa"
     version: main
 
-- name: Clone bhub dotfiles repository
-  git:
-    repo: "git@github.com:lucaspellegrinelli/dotfiles-bhub.git"
-    dest: "/home/{{ ansible_user }}/dotfiles-bhub"
-    recursive: yes
-    update: yes
-    accept_hostkey: yes
-    key_file: "/home/{{ ansible_user }}/.ssh/id_rsa"
-    version: main
-
 - name: Stow dotfiles
   shell: "cd /home/{{ ansible_user }}/dotfiles && stow */"
   args:
     executable: /bin/bash
-
-- name: Stow bhub dotfiles
-  shell: "cd /home/{{ ansible_user }}/dotfiles-bhub && stow */"
-  args:
-    executable: /bin/bash
-
-- name: Source tmux configuration file
-  shell: "tmux source ~/.config/tmux/tmux.conf"

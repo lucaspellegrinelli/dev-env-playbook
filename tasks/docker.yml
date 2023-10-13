@@ -1,0 +1,9 @@
+- name: Download Docker installation script
+  get_url:
+    url: https://get.docker.com
+    dest: "/tmp/get-docker.sh"
+    mode: '0755'
+
+- name: Run Docker installation script
+  become: true
+  command: sh /tmp/get-docker.sh

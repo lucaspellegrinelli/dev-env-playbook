@@ -1,25 +1,25 @@
-FROM  --platform=linux/amd64 ubuntu:22.04 AS base
-WORKDIR /usr/local/bin
-ENV DEBIAN_FRONTEND=noninteractive
-ENV TZ=America/Sao_Paulo
+FROM ubuntu:22.04
 
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-RUN apt-get update && apt-get upgrade -y && apt-get install -y sudo
+RUN apt-get update && \
+    apt-get install -y sudo ansible
 
-FROM base AS setup
+RUN useradd -m -s /bin/bash lucas && \
+    echo "lucas ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/nopasswd
 
-RUN adduser lucas
-RUN echo "lucas:lucas" | chpasswd
-RUN adduser lucas sudo
-RUN echo "lucas ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+COPY . /home/lucas/dev-env-playbook/
+
+ARG VAULT_PASSWORD
+RUN echo "$VAULT_PASSWORD" > /home/lucas/dev-env-playbook/vault_password.txt
 
 USER lucas
-WORKDIR /home/lucas/stuff
-COPY ./install.sh ./install.sh
-RUN ./install.sh
 
-FROM setup as copied
-COPY . .
+WORKDIR /home/lucas
 
-FROM copied
-RUN ls
+RUN cd dev-env-playbook && \
+    ansible-playbook playbook.yml --vault-password-file vault_password.txt
+
+EXPOSE 8080
+
+RUN sudo apt-get install -y ttyd
+
+CMD ttyd -p 8080 zsh
