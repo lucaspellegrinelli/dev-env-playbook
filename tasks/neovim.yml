@@ -24,11 +24,11 @@
 
 - name: Create Packer directory
   file:
-    path: "~/.local/share/nvim/site/pack/packer/start/packer.nvim"
+    path: "/home/{{ ansible_user }}/.local/share/nvim/site/pack/packer/start/packer.nvim"
     state: directory
 
 - name: Clone Packer
   git:
     repo: "https://github.com/wbthomason/packer.nvim"
-    dest: "~/.local/share/nvim/site/pack/packer/start/packer.nvim"
+    dest: "/home/{{ ansible_user }}/.local/share/nvim/site/pack/packer/start/packer.nvim"
     version: master

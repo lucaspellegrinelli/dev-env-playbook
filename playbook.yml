@@ -1,5 +1,8 @@
 - hosts: localhost
 
+  vars:
+    ansible_user: "{{ lookup('env','USER') }}"
+
   tasks:
     - import_tasks: tasks/core.yml
     - import_tasks: tasks/ssh.yml

@@ -7,14 +7,14 @@
 - name: Clone dotfiles repository
   git:
     repo: "git@github.com:lucaspellegrinelli/dotfiles.git"
-    dest: "~/dotfiles"
+    dest: "/home/{{ ansible_user }}/dotfiles"
     recursive: yes
     update: yes
     accept_hostkey: yes
-    key_file: "~/.ssh/id_rsa"
+    key_file: "/home/{{ ansible_user }}/.ssh/id_rsa"
     version: main
 
 - name: Stow dotfiles
-  shell: "cd ~/dotfiles && stow */"
+  shell: "cd /home/{{ ansible_user }}/dotfiles && stow */"
   args:
     executable: /bin/bash

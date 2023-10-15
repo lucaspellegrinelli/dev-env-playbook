@@ -6,17 +6,23 @@
 
 - name: Change default shell
   become: true
-  shell: "chsh -s $(which zsh)"
+  shell: "chsh -s $(which zsh) {{ ansible_user }}"
+
+- name: Set Zsh as default shell
+  user:
+    name: "{{ ansible_user }}"
+    shell: /usr/bin/zsh
+    update_password: on_create
 
 - name: Ensure Antigen directory exists
   file:
-    path: "~/.antigen"
+    path: "/home/{{ ansible_user }}/.antigen"
     state: directory
     mode: '0755'
 
 - name: Download Antigen
   get_url:
     url: "https://git.io/antigen"
-    dest: "~/.antigen/antigen.sh"
+    dest: "/home/{{ ansible_user }}/.antigen/antigen.sh"
     mode: '0755'
 
