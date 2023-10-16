@@ -5,7 +5,6 @@
     mode: '0755'
 
 - name: Install pvem using the installation script
-  become: true
   command: bash /tmp/install.sh --no-prompt
 
 - name: Remove installation script

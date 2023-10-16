@@ -32,3 +32,6 @@
     repo: "https://github.com/wbthomason/packer.nvim"
     dest: "/home/{{ ansible_user }}/.local/share/nvim/site/pack/packer/start/packer.nvim"
     version: master
+
+- name: Run PackerSync
+  command: nvim --headless --noplugin -c "autocmd User PackerComplete quitall" -c "PackerSync"
