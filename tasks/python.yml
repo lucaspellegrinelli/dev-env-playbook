@@ -1,0 +1,13 @@
+- name: Download pvem script
+  get_url:
+    url: https://raw.githubusercontent.com/lucaspellegrinelli/pvem/main/install.sh
+    dest: /tmp/install.sh
+    mode: '0755'
+
+- name: Install pvem using the installation script
+  command: bash /tmp/install.sh --no-prompt
+
+- name: Remove installation script
+  file:
+    path: /tmp/install.sh
+    state: absent

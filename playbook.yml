@@ -1,7 +1,7 @@
 - hosts: localhost
 
   vars:
-    ansible_user: "lucas"
+    ansible_user: "{{ lookup('env','USER') }}"
 
   tasks:
     - import_tasks: tasks/core.yml
@@ -11,5 +11,6 @@
     - import_tasks: tasks/tmux.yml
     - import_tasks: tasks/dotfiles.yml
     - import_tasks: tasks/node.yml
+    - import_tasks: tasks/python.yml
     - import_tasks: tasks/neovim.yml
     - import_tasks: tasks/docker.yml
