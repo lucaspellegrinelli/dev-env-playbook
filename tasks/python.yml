@@ -1,3 +1,9 @@
+- name: Install required libs for pvem
+  become: true
+  apt:
+    name: zlib1g-dev
+    state: present
+
 - name: Download pvem script
   get_url:
     url: https://raw.githubusercontent.com/lucaspellegrinelli/pvem/main/install.sh

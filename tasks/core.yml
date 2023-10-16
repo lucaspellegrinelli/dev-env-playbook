@@ -3,3 +3,21 @@
   apt:
     name: fzf
     state: present
+
+- name: Install gcc
+  become: true
+  apt:
+    name: gcc
+    state: present
+
+- name: Install make
+  become: true
+  apt:
+    name: make
+    state: present
+
+- name: Install curl
+  become: true
+  apt:
+    name: curl
+    state: present
