@@ -10,17 +10,17 @@
     dest: "/tmp"
     remote_src: yes
 
-- name: Ensure ~/.local directory exists
+- name: Ensure .local directory exists
   file:
-    path: "~/.local"
+    path: "/home/{{ ansible_user }}/.local"
     state: directory
     mode: '0755'
 
-- name: Move Neovim directory to ~/.local
-  command: mv /tmp/nvim-linux64 ~/.local/
+- name: Move Neovim directory to .local
+  command: mv /tmp/nvim-linux64 /home/{{ ansible_user }}/.local/
 
 - name: Rename nvim-linux64 to nvim
-  command: mv ~/.local/nvim-linux64 ~/.local/nvim
+  command: mv /home/{{ ansible_user }}/.local/nvim-linux64 /home/{{ ansible_user }}/.local/nvim
 
 - name: Create Packer directory
   file:
@@ -34,4 +34,4 @@
     version: master
 
 - name: Run PackerSync
-  command: nvim --headless --noplugin -c "autocmd User PackerComplete quitall" -c "PackerSync"
+  command: /home/{{ ansible_user }}/.local/nvim/bin/nvim --headless --noplugin -c "autocmd User PackerComplete quitall" -c "PackerSync"
