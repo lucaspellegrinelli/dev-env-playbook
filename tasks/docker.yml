@@ -5,5 +5,4 @@
     mode: '0755'
 
 - name: Run Docker installation script
-  become: true
-  command: sh /tmp/get-docker.sh
+  command: bash /tmp/get-docker.sh
