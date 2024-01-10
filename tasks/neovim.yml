@@ -1,6 +1,6 @@
 - name: Download Neovim archive
   get_url:
-    url: "https://github.com/neovim/neovim/releases/download/v0.9.4/nvim-linux64.tar.gz"
+    url: "https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.tar.gz"
     dest: "/tmp/nvim-linux64.tar.gz"
     validate_certs: no
 
@@ -21,17 +21,3 @@
 
 - name: Rename nvim-linux64 to nvim
   command: mv /home/{{ ansible_user }}/.local/nvim-linux64 /home/{{ ansible_user }}/.local/nvim
-
-- name: Create Packer directory
-  file:
-    path: "/home/{{ ansible_user }}/.local/share/nvim/site/pack/packer/start/packer.nvim"
-    state: directory
-
-- name: Clone Packer
-  git:
-    repo: "https://github.com/wbthomason/packer.nvim"
-    dest: "/home/{{ ansible_user }}/.local/share/nvim/site/pack/packer/start/packer.nvim"
-    version: master
-
-- name: Run PackerSync
-  command: /home/{{ ansible_user }}/.local/nvim/bin/nvim --headless --noplugin -c "autocmd User PackerComplete quitall" -c "PackerSync"
