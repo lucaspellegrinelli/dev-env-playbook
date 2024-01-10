@@ -21,3 +21,9 @@
   apt:
     name: curl
     state: present
+    
+- name: Install unzip
+  become: true
+  apt:
+    name: unzip
+    state: present
