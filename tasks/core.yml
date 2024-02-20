@@ -27,3 +27,9 @@
   apt:
     name: unzip
     state: present
+
+- name: Install libssl
+  become: true
+  apt:
+    name: libssl-dev
+    state: present
