@@ -1,7 +1,7 @@
 - name: Install required libs for pvem
   become: true
   apt:
-    name: zlib1g-dev
+    name: ["libssl-dev", "libffi-dev", "zlib1g-dev"]
     state: present
 
 - name: Download pvem script

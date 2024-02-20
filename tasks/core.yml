@@ -27,9 +27,3 @@
   apt:
     name: unzip
     state: present
-
-- name: Install libs
-  become: true
-  apt:
-    name: ["libssl-dev", "libffi-dev"]
-    state: present
