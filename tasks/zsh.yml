@@ -13,16 +13,3 @@
     name: "{{ ansible_user }}"
     shell: /usr/bin/zsh
     update_password: on_create
-
-- name: Ensure Antigen directory exists
-  file:
-    path: "/home/{{ ansible_user }}/.antigen"
-    state: directory
-    mode: '0755'
-
-- name: Download Antigen
-  get_url:
-    url: "https://git.io/antigen"
-    dest: "/home/{{ ansible_user }}/.antigen/antigen.sh"
-    mode: '0755'
-
