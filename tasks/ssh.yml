@@ -1,22 +1,36 @@
-- name: Copy SSH public key to target user's .ssh directory
+- name: Ensure .ssh directory exists
+  file:
+    path: "/home/{{ ansible_user }}/.ssh"
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: "0700"
+  tags:
+    - ssh
+
+- name: Copy SSH private key to target user's .ssh directory
   copy:
     src: "./.ssh/id_rsa"
-    dest: "/home/{{ ansible_user }}/.ssh/"
+    dest: "/home/{{ ansible_user }}/.ssh/id_rsa"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
     mode: "0600"
+  tags:
+    - ssh
 
 - name: Copy SSH public key to target user's .ssh directory
   copy:
     src: "./.ssh/id_rsa.pub"
-    dest: "/home/{{ ansible_user }}/.ssh/"
+    dest: "/home/{{ ansible_user }}/.ssh/id_rsa.pub"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
     mode: "0644"
+  tags:
+    - ssh
 
 - name: Set the public key as the authorized key
   authorized_key:
     user: "{{ ansible_user }}"
-    key: "{{ lookup('file', item) }}"
-  with_fileglob:
-    - "/home/{{ ansible_user }}/.ssh/*.pub"
+    key: "{{ lookup('file', '/home/' + ansible_user + '/.ssh/id_rsa.pub') }}"
+  tags:
+    - ssh

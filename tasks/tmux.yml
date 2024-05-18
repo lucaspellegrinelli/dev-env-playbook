@@ -3,6 +3,26 @@
   apt:
     name: tmux
     state: present
+  tags:
+    - tmux
 
-- name: Installing tmux plugin manager
-  shell: git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+- name: Ensure tmux plugins directory exists
+  file:
+    path: "/home/{{ ansible_user }}/.tmux/plugins"
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: "0755"
+  tags:
+    - tmux
+
+- name: Install tmux plugin manager
+  git:
+    repo: "https://github.com/tmux-plugins/tpm"
+    dest: "/home/{{ ansible_user }}/.tmux/plugins/tpm"
+    clone: yes
+    update: yes
+    force: yes
+    accept_hostkey: yes
+  tags:
+    - tmux

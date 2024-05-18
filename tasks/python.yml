@@ -1,19 +1,30 @@
-- name: Install required libs for pvem
+- name: Install required libraries for pvem
   become: true
   apt:
-    name: ["libssl-dev", "libffi-dev", "zlib1g-dev"]
+    name:
+      - libssl-dev
+      - libffi-dev
+      - zlib1g-dev
     state: present
+  tags:
+    - pvem
 
 - name: Download pvem script
   get_url:
     url: https://raw.githubusercontent.com/lucaspellegrinelli/pvem/main/install.sh
     dest: /tmp/install.sh
     mode: '0755'
+  tags:
+    - pvem
 
 - name: Install pvem using the installation script
   command: bash /tmp/install.sh --no-prompt
+  tags:
+    - pvem
 
 - name: Remove installation script
   file:
     path: /tmp/install.sh
     state: absent
+  tags:
+    - pvem

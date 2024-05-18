@@ -3,13 +3,11 @@
   apt:
     name: zsh
     state: present
+  tags:
+    - zsh
 
 - name: Change default shell
   become: true
-  shell: "chsh -s $(which zsh) {{ ansible_user }}"
-
-- name: Set Zsh as default shell
-  user:
-    name: "{{ ansible_user }}"
-    shell: /usr/bin/zsh
-    update_password: on_create
+  shell: chsh -s $(which zsh) "{{ ansible_user }}"
+  tags:
+    - zsh

@@ -1,8 +1,29 @@
+- name: Check if Docker is already installed
+  command: docker --version
+  register: docker_version
+  ignore_errors: yes
+  tags:
+    - docker
+
 - name: Download Docker installation script
   get_url:
     url: https://get.docker.com
     dest: "/tmp/get-docker.sh"
     mode: '0755'
+  when: docker_version.rc != 0
+  tags:
+    - docker
 
 - name: Run Docker installation script
-  command: bash /tmp/get-docker.sh
+  shell: bash /tmp/get-docker.sh
+  when: docker_version.rc != 0
+  tags:
+    - docker
+
+- name: Clean up Docker installation script
+  file:
+    path: "/tmp/get-docker.sh"
+    state: absent
+  when: docker_version.rc != 0
+  tags:
+    - docker

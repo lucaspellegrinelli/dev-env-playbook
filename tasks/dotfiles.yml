@@ -3,6 +3,8 @@
   apt:
     name: stow
     state: present
+  tags:
+    - dotfiles
 
 - name: Clone dotfiles repository
   git:
@@ -13,8 +15,12 @@
     accept_hostkey: yes
     key_file: "/home/{{ ansible_user }}/.ssh/id_rsa"
     version: main
+  tags:
+    - dotfiles
 
 - name: Stow dotfiles
   shell: "cd /home/{{ ansible_user }}/dotfiles && stow */"
   args:
     executable: /bin/bash
+  tags:
+    - dotfiles

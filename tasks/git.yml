@@ -4,11 +4,15 @@
     name: git
     update_cache: yes
     state: present
+  tags:
+    - git
 
 - name: Set git username and email
-  vars:
-    git_username: "Lucas Pellegrinelli"
-    git_email: "lucas.pellegrinelli@hotmail.com"
   shell: |
     git config --global user.name "{{ git_username }}"
     git config --global user.email "{{ git_email }}"
+  vars:
+    git_username: "Lucas Pellegrinelli"
+    git_email: "lucas.pellegrinelli@hotmail.com"
+  tags:
+    - git

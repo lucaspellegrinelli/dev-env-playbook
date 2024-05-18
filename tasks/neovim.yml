@@ -3,21 +3,26 @@
     url: "https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.tar.gz"
     dest: "/tmp/nvim-linux64.tar.gz"
     validate_certs: no
+  tags:
+    - neovim
 
 - name: Extract Neovim archive
   unarchive:
     src: "/tmp/nvim-linux64.tar.gz"
     dest: "/tmp"
     remote_src: yes
+  tags:
+    - neovim
 
 - name: Ensure .local directory exists
   file:
     path: "/home/{{ ansible_user }}/.local"
     state: directory
     mode: '0755'
+  tags:
+    - neovim
 
-- name: Move Neovim directory to .local
-  command: mv /tmp/nvim-linux64 /home/{{ ansible_user }}/.local/
-
-- name: Rename nvim-linux64 to nvim
-  command: mv /home/{{ ansible_user }}/.local/nvim-linux64 /home/{{ ansible_user }}/.local/nvim
+- name: Move and rename Neovim directory
+  command: mv /tmp/nvim-linux64 /home/{{ ansible_user }}/.local/nvim
+  tags:
+    - neovim

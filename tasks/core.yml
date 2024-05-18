@@ -1,29 +1,13 @@
-- name: Install fzf
+- name: Ensure necessary packages are installed
   become: true
   apt:
-    name: fzf
+    name:
+      - gcc
+      - make
+      - curl
+      - unzip
+      - fzf
     state: present
-
-- name: Install gcc
-  become: true
-  apt:
-    name: gcc
-    state: present
-
-- name: Install make
-  become: true
-  apt:
-    name: make
-    state: present
-
-- name: Install curl
-  become: true
-  apt:
-    name: curl
-    state: present
-    
-- name: Install unzip
-  become: true
-  apt:
-    name: unzip
-    state: present
+    update_cache: yes
+  tags:
+    - packages

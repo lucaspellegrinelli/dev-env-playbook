@@ -4,13 +4,32 @@
     ansible_user: "{{ lookup('env','USER') }}"
 
   tasks:
-    - import_tasks: tasks/core.yml
-    - import_tasks: tasks/ssh.yml
-    - import_tasks: tasks/git.yml
-    - import_tasks: tasks/zsh.yml
-    - import_tasks: tasks/tmux.yml
-    - import_tasks: tasks/dotfiles.yml
-    - import_tasks: tasks/node.yml
-    - import_tasks: tasks/python.yml
-    - import_tasks: tasks/neovim.yml
-    - import_tasks: tasks/docker.yml
+    - name: Include core tasks
+      import_tasks: tasks/core.yml
+
+    - name: Include SSH tasks
+      import_tasks: tasks/ssh.yml
+
+    - name: Include Git tasks
+      import_tasks: tasks/git.yml
+
+    - name: Include Zsh tasks
+      import_tasks: tasks/zsh.yml
+
+    - name: Include Tmux tasks
+      import_tasks: tasks/tmux.yml
+
+    - name: Include dotfiles tasks
+      import_tasks: tasks/dotfiles.yml
+
+    - name: Include Node.js tasks
+      import_tasks: tasks/node.yml
+
+    - name: Include Python tasks
+      import_tasks: tasks/python.yml
+
+    - name: Include Neovim tasks
+      import_tasks: tasks/neovim.yml
+
+    - name: Include Docker tasks
+      import_tasks: tasks/docker.yml
